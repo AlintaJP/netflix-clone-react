@@ -1,6 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import React, { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import Plans from "../../components//Plans/Plans";
@@ -8,7 +7,7 @@ import Nav from "../../components/Nav/Nav";
 import "./ProfileScreen.css";
 
 const ProfileScreen = () => {
-  const user = useSelector(selectUser);
+  const { user } = useContext(UserContext);
 
   return (
     <div className="profile-screen">

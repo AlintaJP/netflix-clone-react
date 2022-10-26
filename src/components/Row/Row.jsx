@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { imgUrl } from "../../constants/imgUrl";
-import instance from "../../utils/api/axios";
+import useRow from "../../hooks/useRow";
 import "./Row.css";
 
 const Row = ({ title, fetchUrl, isLargeRow = false }) => {
-  const [movies, setMovies] = useState([]);
+  const { data: movies } = useRow(fetchUrl);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const request = await instance.get(fetchUrl);
-      setMovies(request.data.results);
-      return request;
-    };
-
-    fetchData();
-  }, [fetchUrl]);
+  console.log(movies);
 
   return (
     <div className="row">
       <h3>{title}</h3>
 
       <div className="row__posters">
-        {movies.map(
+        {movies?.map(
           (movie) =>
             ((isLargeRow && movie.poster_path) ||
               (!isLargeRow && movie.backdrop_path)) && (

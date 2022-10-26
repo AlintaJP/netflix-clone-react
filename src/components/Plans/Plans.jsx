@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Plans.css";
 import {
   collection,
@@ -8,14 +8,13 @@ import {
   onSnapshot,
   addDoc,
 } from "firebase/firestore";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
 import { loadStripe } from "@stripe/stripe-js";
+import { UserContext } from "../../context/userContext";
 import db from "../../firebase";
 
 const Plans = () => {
   const [products, setProducts] = useState([]);
-  const user = useSelector(selectUser);
+  const { user } = useContext(UserContext);
   const [subscription, setSubscription] = useState(null);
 
   useEffect(() => {
